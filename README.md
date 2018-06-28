@@ -1,0 +1,3 @@
+# equine-geno-calculator
+
+WIP
