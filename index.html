@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>VueJS Test</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="styles.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <div id="app">
+
+            <table class="gene-selector">
+
+                <tr v-for="gene in genes">
+
+                    <td class="geno-input">
+                        <h2>{{gene.name}}</h2>
+                        <table class="geno-list">
+                            <td v-for="n in 2" class="list-column"><ul>
+                                <li v-for="allele in gene.alleleVariants">
+                                    <input type="radio" v-bind:id="gene.name + '-' + allele + '-' + n" :value="allele" v-model="gene.alleles[n-1]" />
+                                    <label :for="gene.name + '-' + allele + '-' + n">{{allele}}</label>
+                                </li>
+                            </ul></td>
+                        </table>
+                    </td>
+
+                    <td class="geno-display">
+                        {{gene.display}}
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td class="full-geno-display" colspan="2">
+                        {{genotype}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="pheno-display" colspan="2">
+                        {{phenotype}}
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <script src="script.js"></script>
+
+    </body>
+</html>
