@@ -1,22 +1,30 @@
-function Gene(name, alleleVariants) {
+function Gene(name, alleleVariants, alleleDefault) {
 
     this.name = name;
     this.alleleVariants = alleleVariants;
     this.alleles = [
-        this.alleleVariants[0],
-        this.alleleVariants[0]
+        alleleDefault,
+        alleleDefault
     ];
 
     this.getDisplay = function() {
         var a = this.alleleVariants.indexOf(this.alleles[0]);
         var b = this.alleleVariants.indexOf(this.alleles[1]);
         return (b < a) ? this.alleles.slice().reverse().join('') : this.alleles.join('');
+        // ^ slice() needed so reverse() doesn't reverse original this.alleles
     };
 }
 
 var genes = {
-    extension: new Gene("Extension", ['E', 'e'] ),
-    agouti:    new Gene("Agouti",    ['A', 'Aᵗ', 'a'] )
+    extension: new Gene("Extension", ['E', 'e'], 'E' ),
+    agouti:    new Gene("Agouti",    ['A', 'Aᵗ', 'a'], 'a' ),
+    dun:       new Gene("Dun",       ['D', 'd'], 'd' ),
+    cream:     new Gene("Cream",     ['C', 'Cᶜʳ'], 'C'),
+    champagne: new Gene("Champagne", ['Ch', 'ch'], 'ch'),
+    silver:    new Gene("Silver",    ['Z', 'z'], 'z'),
+    flaxen:    new Gene("Flaxen",    ['F', 'f'], 'f'),
+    grey:      new Gene("Grey",      ['G', 'g'], 'g'),
+    white:     new Gene("White",     ['n', 'W'], 'n')
 };
 
 
