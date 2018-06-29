@@ -1,45 +1,22 @@
+function Gene(name, alleleVariants) {
+
+    this.name = name;
+    this.alleleVariants = alleleVariants;
+    this.alleles = [
+        this.alleleVariants[0],
+        this.alleleVariants[0]
+    ];
+
+    this.getDisplay = function() {
+        var a = this.alleleVariants.indexOf(this.alleles[0]);
+        var b = this.alleleVariants.indexOf(this.alleles[1]);
+        return (b < a) ? this.alleles.slice().reverse().join('') : this.alleles.join('');
+    };
+}
+
 var genes = {
-    extension: {
-        name: "Extension",
-        alleleVariants: [
-            'E',
-            'e'
-        ],
-        alleles: ['E', 'E'],
-        get display() {
-            if (this.alleles[0] === 'E' && this.alleles[1] === 'E') {
-                return "EE";
-            } else if (this.alleles[0] === 'E' || this.alleles[1] === 'E') {
-                return "Ee";
-            }
-            return "ee";
-        }
-    },
-    agouti: {
-        name: "Agouti",
-        alleleVariants: [
-            'A',
-            'Aᵗ',
-            'a'
-        ],
-        alleles: ['A', 'A'],
-        get display() {
-            if (this.alleles[0] === 'A' || this.alleles[1] === 'A') { // A_
-                if (this.alleles[0] === 'A' && this.alleles[1] === 'A') { // AA
-                    return "AA";
-                } else if (this.alleles[0] === 'Aᵗ' || this.alleles[1] === 'Aᵗ') { // AAᵗ
-                    return "AAᵗ";
-                }
-                return "Aa";
-            } else if (this.alleles[0] === 'Aᵗ' || this.alleles[1] === 'Aᵗ') { // Aᵗ_
-                if (this.alleles[0] === 'Aᵗ' && this.alleles[1] === 'Aᵗ') {
-                    return "AᵗAᵗ";
-                }
-                return "Aᵗa";
-            }
-            return "aa";
-        }
-    }
+    extension: new Gene("Extension", ['E', 'e'] ),
+    agouti:    new Gene("Agouti",    ['A', 'Aᵗ', 'a'] )
 };
 
 
@@ -50,7 +27,7 @@ var app = new Vue({
     },
     computed: {
         genotype: function() {
-            return genes.extension.display + " " + genes.agouti.display;
+            return genes.extension.getDisplay() + " " + genes.agouti.getDisplay();
         },
         phenotype: function() {
             if (genes.extension.alleles[0] === 'e' && genes.extension.alleles[1] === 'e') {
